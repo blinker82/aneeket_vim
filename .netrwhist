@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/usr2/aneeketp/bashrc_qc'
+let g:netrw_dirhist_2='/local/mnt/workspace/qnx/QXA.QX.0.0-00084-ALL-1_CRM_INT/qnx_ap/AMSS/platform/pmic/B_family/process_default/comm/spmi'
