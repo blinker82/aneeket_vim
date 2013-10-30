@@ -1,6 +1,7 @@
-* Instructions to use this repo
+* Instructions to use this repo ( bash )
 
-* Make sure you have git installed
+* Make sure you have git installed.
+* Then run the following or just clone it 
 `git clone https://github.com/blinker82/aneeket_vim.git`
 
 * Install vim ( I have only tested this with vim-gnome)
