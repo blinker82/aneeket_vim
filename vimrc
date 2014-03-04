@@ -186,30 +186,30 @@ syntax enable "Enable syntax hl
 
 " Set font according to system
 if MySys() == "mac"
-  set gfn=Menlo:h14
-  set shell=/bin/bash
+    set gfn=Menlo:h14
+    set shell=/bin/bash
 elseif MySys() == "windows"
-  set gfn=Bitstream\ Vera\ Sans\ Mono:h10
+    set gfn=Bitstream\ Vera\ Sans\ Mono:h10
 elseif MySys() == "linux"
-  set gfn=Monospace\ 10
-  set shell=/bin/bash
-"  set shellcmdflag=-ic
+    set gfn=Monospace\ 10
+    set shell=/bin/bash
+    "  set shellcmdflag=-ic
 endif
 
-  set gfn=Monospace\ 10
-  set shell=/bin/bash
-  set shellcmdflag=-ic
+set gfn=Monospace\ 10
+set shell=/bin/bash
+set shellcmdflag=-ic
 if has("gui_running")
-  set guioptions-=T
-  set t_Co=256
-  colorscheme peaksea
-  set background=dark
-  set guifont=Courier\ 10\ Pitch\ 10
-  set nonu
+    set guioptions-=T
+    set t_Co=256
+    colorscheme peaksea
+    set background=dark
+    set guifont=Courier\ 10\ Pitch\ 9 
+    set nonu
 else
-"  colorscheme peaksea
-  set background=dark
-  set nonu
+    "  colorscheme peaksea
+    set background=dark
+    set nonu
 endif
 
 hi Search term=reverse cterm=reverse
@@ -233,11 +233,11 @@ set noswapfile
 "Persistent undo
 try
     if MySys() == "windows"
-      set undodir=C:\Windows\Temp
+        set undodir=C:\Windows\Temp
     else
-      set undodir=~/.vim_runtime/undodir
+        set undodir=~/.vim_runtime/undodir
     endif
-    
+
     set undofile
 catch
 endtry
@@ -249,6 +249,7 @@ endtry
 set expandtab
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
 "" Disabling smarttab so that we use only tabs
 "" set smarttab
 
@@ -347,29 +348,29 @@ cmap ½ $
 
 
 func! Cwd()
-  let cwd = getcwd()
-  return "e " . cwd 
+    let cwd = getcwd()
+    return "e " . cwd 
 endfunc
 
 func! DeleteTillSlash()
-  let g:cmd = getcmdline()
-  if MySys() == "linux" || MySys() == "mac"
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-  else
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-  endif
-  if g:cmd == g:cmd_edited
+    let g:cmd = getcmdline()
     if MySys() == "linux" || MySys() == "mac"
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
     else
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
     endif
-  endif   
-  return g:cmd_edited
+    if g:cmd == g:cmd_edited
+        if MySys() == "linux" || MySys() == "mac"
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+        else
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+        endif
+    endif   
+    return g:cmd_edited
 endfunc
 
 func! CurrentFileDir(cmd)
-  return a:cmd . " " . expand("%:p:h") . "/"
+    return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
 
@@ -415,28 +416,28 @@ map <leader>cd :cd %:p:h<cr>
 
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
 endfunction
 
 " Specify the behavior when switching between buffers 
 try
-  set switchbuf=usetab
-  set stal=2
+    set switchbuf=usetab
+    set stal=2
 catch
 endtry
 
@@ -525,17 +526,17 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 if MySys() == "mac"
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
 endif
 
 "Delete trailing white space, useful for Python ;)
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
@@ -712,8 +713,8 @@ map <Insert> :set paste<CR>i<CR><CR><Esc>k:.!xclip -o<CR>JxkJx:set nopaste<CR>
 set number
 if MySys() == "mac"
     if has("gui_running")
-      set fuoptions=maxvert,maxhorz
-      au GUIEnter * set fullscreen
+        set fuoptions=maxvert,maxhorz
+        au GUIEnter * set fullscreen
     endif
 endif
 
@@ -746,3 +747,11 @@ let g:ctrlp_working_path_mode='r'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_user_command = 'find %s -type f'
 "let g:ctrlp_extensions = ['tag']
+
+
+"""""""""""""""""""""
+"pymode"
+"""""""""""""""""""""
+let g:pymode_folding = 0
+let g:pymode_rope = 0
+let g:pymode_motion = 0
