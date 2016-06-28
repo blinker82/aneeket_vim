@@ -128,6 +128,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "map <C-N> <plug>NERDTreeTabsToggle<CR>
 map <C-S> <esc>:NERDTreeFind<CR>
+map <C-[> <esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GTAGS global
@@ -213,7 +214,16 @@ else
 endif
 
 hi Search term=reverse cterm=reverse
-set encoding=utf8
+" set encoding=utf8
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
 try
     lang en_US
 catch
@@ -604,7 +614,18 @@ map <leader>bg :FufBookmark<cr>
 " => Omni complete functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" OmniCppComplete      
+let OmniCpp_NamespaceSearch = 1      
+let OmniCpp_GlobalScopeSearch = 1      
+let OmniCpp_ShowAccess = 1      
+let OmniCpp_MayCompleteDot = 1      
+let OmniCpp_MayCompleteArrow = 1      
+let OmniCpp_MayCompleteScope = 1      
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]      
 
+" automatically open and close the popup menu / preview window      
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif      
+set completeopt=menuone,menu,longest,preview
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -735,7 +756,8 @@ function! DmenuOpen(cmd)
     execute a:cmd . " " . fname
 endfunction
 
-map <c-l> :TlistToggle<cr>
+" map <c-l> :TlistToggle<cr>
+map <c-l> :TagbarToggle<cr>
 "map <c-f> :TlistClose<cr>
 let Tlist_Show_One_File=1
 """"""""""""""""""""
