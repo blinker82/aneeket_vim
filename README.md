@@ -17,6 +17,7 @@
 So to fix it.
 sudo apt-get -y remove vim-gnome
 sudo apt-get install vim-gtk )
+Also rename aneeket_vim to .vim_runtime in root
 `ln -s ~/.vim_runtime/vimrc_wrapper ~/.vimrc`
 * Needed for tagging files
 `sudo apt-get install exuberant-ctags`
