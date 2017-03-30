@@ -92,7 +92,14 @@ set tags=tags
 source ~/.vim_runtime/bundle/gtags.vim
 " Source Autotag.vim to auto regenerate tags"
 source ~/.vim_runtime/plugin/autotag.vim
-
+"source ~/.vim_runtime/plugin/gtags-cscope.vim
+" To use the default key/mouse mapping:
+"let GtagsCscope_Auto_Map = 1
+" If you hope auto loading:
+"let GtagsCscope_Auto_Load = 1
+"set cscopetag
+"set csprg=gtags-cscope
+"cs add GTAGS $PWD
 " Sets how many lines of history VIM has to remember
 set history=700
 " Enable filetype plugin
@@ -112,7 +119,7 @@ nmap <leader>w :w!<cr>
 
 if MySys() == "windows"
     " Fast editing of the .vimrc
-    map <leader>e :e! ~/_vim_runtime/vimrc<cr>
+    map <leader>e :e! ~_vim_runtime/vimrc<cr>
 
     " When vimrc is edited, reload it
     autocmd! bufwritepost vimrc source ~/_vim_runtime/vimrc
@@ -130,6 +137,7 @@ endif
 map <C-S> <esc>:NERDTreeFind<CR>
 map <C-[> <esc>
 
+let NERDTreeMapOpenInTab='<Enter>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GTAGS global
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -763,14 +771,25 @@ let Tlist_Show_One_File=1
 """"""""""""""""""""
 "Ctrlp"
 """"""""""""""""""""
-let g:ctrlp_max_files=0
-let g:ctrlp_max_depth=50
-let g:ctrlp_working_path_mode='r'
+let g:ctrlp_max_files=100
+let g:ctrlp_max_depth=25
+let g:ctrlp_working_path_mode=0
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_user_command = 'find %s -type f'
-"let g:ctrlp_extensions = ['tag']
-
-
+"let g:ctrlp_switch_buffer = 'Ev'
+"let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = 'find %s -type f'
+endif
+let g:ctrlp_regexp = 1
+let g:ctrlp_custom_ignore = {
+	\ 'file': '\v\.(exe|so|dll|a|Sa)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 """""""""""""""""""""
 "pymode"
 """""""""""""""""""""
