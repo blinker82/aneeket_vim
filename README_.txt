@@ -8,11 +8,8 @@
 `sudo apt-get install vim-gnome`
 ( On Ubuntu version greater than 10 vim-gnome works but gives annoying errors like : 
 (gvim:4054): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::sm-connect after class was initialised
-
 (gvim:4054): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::show-crash-dialog after class was initialised
-
 (gvim:4054): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::display after class was initialised
-
 (gvim:4054): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::default-icon after class was initialised
 So to fix it.
 sudo apt-get -y remove vim-gnome
